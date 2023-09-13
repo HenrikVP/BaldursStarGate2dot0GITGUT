@@ -14,7 +14,7 @@
             Console.Clear();
             Gui.ShowPlayer(player);
             Gui.ShowMonster(monster);
-            Gui.Print(3,5,$"{player} opens a stargate, and out jumps a {monster}.");
+            Gui.Print(3, 5, $"{player} opens a stargate, and out jumps a {monster}.");
             bool continueBattle = true;
             int round = 1;
             while (continueBattle)
@@ -27,25 +27,38 @@
                     lineCounter = 6;
                 }
 
-                Gui.Print(3,4,"Round " + round++);
+                Gui.Print(3, 4, "Round " + round++);
                 Console.ReadKey();
                 if (WhoStarts() == 0)
                 {
                     continueBattle = Attack(player, monster);
-                    if (!continueBattle) return true;// break;
+                    //Player wins
+                    if (!continueBattle)
+                    {
+                        //TODO F...ed up
+                        player.EquipmentList.AddRange(monster.EquipmentList);
+                        player.Gold += monster.Gold;
+                        return true;
+                    }// break;
                     continueBattle = Attack(monster, player);
-                    if (!continueBattle) return false;// break;
+                    if (!continueBattle) { return false; }// break;
                 }
                 else
                 {
                     continueBattle = Attack(monster, player);
                     if (!continueBattle) return false;// break;
                     continueBattle = Attack(player, monster);
-                    if (!continueBattle) return true;
+                    if (!continueBattle)
+                    {
+                        player.EquipmentList.AddRange(monster.EquipmentList);
+                        player.Gold += monster.Gold;
+                        return true;
+                    }
                 }
             }
             return true;
         }
+
 
         int lineCounter = 6;
         private bool Attack(Creature attacker, Creature defender)

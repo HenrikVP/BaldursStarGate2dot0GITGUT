@@ -11,17 +11,20 @@
         //TODO Register player
         //TODO Exceptions
 
+        private List<Equipment> allEquipment;
         public const int Dice = 20;
         public static Random Rnd = new Random();
 
         public Game()
         {
+            allEquipment = Io.Load<AllEquipment>().EquipmentList;
             Player pg = CreatePlayer();
             while (GameMenu(pg)) ;
         }
 
         public Game(Player player)
         {
+            allEquipment = Io.Load<AllEquipment>().EquipmentList;
             while (GameMenu(player)) ;
         }
 
@@ -76,6 +79,8 @@
             pcp.Type = "Player";
             Gui.Print(3, 5, "Name: ");
             pcp.Name = Console.ReadLine();
+
+
             return pcp;
         }
 

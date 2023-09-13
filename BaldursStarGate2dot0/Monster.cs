@@ -2,9 +2,9 @@
 {
     internal class Monster : Creature
     { 
-        public Monster()
+        public Monster(List<Equipment> allEquipment)
         {
-            CreateMonster();
+            CreateMonster(allEquipment);
             Health = MaxHealth;
         }
 
@@ -13,8 +13,11 @@
             return Type;
         }
 
-        private void CreateMonster()
+        private void CreateMonster(List<Equipment> allEquipment)
         {
+            Equipment equipment = allEquipment[Game.Rnd.Next(allEquipment.Count)];
+            EquipmentList.Add(equipment);
+
             switch (Game.Rnd.Next(100))
             {
                 case < 20:

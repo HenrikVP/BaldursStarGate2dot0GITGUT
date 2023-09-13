@@ -1,12 +1,11 @@
-﻿using System.Text.Json.Serialization;
-
-namespace BaldursStarGate2dot0
+﻿namespace BaldursStarGate2dot0
 {
     public abstract class Creature
     {
         //Field
         private int health;
         public int MaxHealth { get; set; }
+        public List<Equipment> EquipmentList { get; set; } = new();
 
         //Property. GET returns value of field, SET sets value of field from [value]
         public int Health { 
